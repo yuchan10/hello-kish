@@ -71,10 +71,19 @@
     await batch.commit();
   }
 
+  // 같은 인터뷰가 기존 문서에도 있으면 정식 staff 문서를 우선 표시합니다.
+  // 서버의 기존 문서는 삭제하지 않습니다.
+  function uniquePeople(rows){
+    const staffIds = new Set(DEFAULT_PEOPLE.map(p => p.id));
+    const key = p => String(p.name || "").normalize("NFKC").trim().replace(/\s+/g, " ").toLocaleLowerCase();
+    const officialNames = new Set(rows.filter(p => staffIds.has(p.id)).map(key));
+    return rows.filter(p => staffIds.has(p.id) || !officialNames.has(key(p)));
+  }
+
   function subscribePeople(){
     const q = query(peopleCol, orderBy("seq"));
     onSnapshot(q, (snap)=>{
-      PEOPLE = snap.docs.map(d => ({ ...d.data(), id: d.id }));
+      PEOPLE = uniquePeople(snap.docs.map(d => ({ ...d.data(), id: d.id })));
       databaseReady = true;
       renderWeekly();
       renderGrid();
