@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>HELLO KISH · 우리 학교 사람들</title>
+<link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <div class="appbar">
+    <div class="brand"><span class="icon"><img src="./assets/images/kish-logo.jpg" alt="KISH"></span> HELLO KISH</div>
+    <button class="icon-btn" id="adminToggleBtn" title="편집 모드">🔒</button>
+  </div>
+
+  <!-- ===================== 홈 페이지 ===================== -->
+  <div class="page active" id="page-home">
+    <header class="hero home-hero">
+      <div class="logo-badge">HELLO KISH 캠페인</div>
+      <h1>우리 학교 사람들에게<br><span class="accent">인사</span>를 건네보세요</h1>
+      <p>매일 우리 곁에서 학교를 지켜주시는 학교 구성원들을 소개합니다.</p>
+    </header>
+
+    <section class="section">
+      <div class="section-title"><span class="dot"></span><h2>이번 주 인사할 분</h2></div>
+      <div id="weeklyCard" class="weekly-card"><div class="empty-msg">불러오는 중...</div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-title"><span class="dot"></span><h2>학교 구성원 소개</h2></div>
+
+      <div class="searchbar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="searchInput" type="text" placeholder="이름으로 검색해보세요" />
+      </div>
+
+      <div class="filters" id="filterBar"></div>
+
+      <div class="grid" id="peopleGrid"><div class="empty-msg">불러오는 중...</div></div>
+    </section>
+
+    <div class="info-footer">
+      <p>매주 한 분씩 소개되며, 학생들은 그 주에 마주치면 먼저 인사를 건넵니다.</p>
+    </div>
+  </div>
+
+  <!-- ===================== 제작진 페이지 ===================== -->
+  <div class="page" id="page-credits">
+    <header class="hero">
+      <div class="logo-badge">만든 사람들</div>
+      <h1>HELLO KISH를<br><span class="accent">만든 학생들</span></h1>
+      <p>10명의 학생이 학교 구성원을 조사하고, 이 앱으로 소개하는 봉사활동 캠페인입니다.</p>
+    </header>
+    <section class="section credits-section">
+      <div id="creditsList"></div>
+    </section>
+  </div>
+
+  <!-- ===================== 하단 네비게이션 ===================== -->
+  <div class="bottom-nav">
+    <button class="nav-btn active" data-page="home"><span class="ic">🏠</span>홈</button>
+    <button class="nav-btn" data-page="credits"><span class="ic">🎓</span>제작진</button>
+  </div>
+
+  <!-- ===================== FAB (관리자 전용) ===================== -->
+  <div class="fab-wrap"><button class="fab" id="fabAdd">+</button></div>
+
+</div>
+
+<!-- ===================== 상세보기 모달 ===================== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<!-- ===================== 작성/수정 폼 모달 ===================== -->
+<div class="modal-overlay" id="formOverlay">
+  <div class="modal" id="formContent"></div>
+</div>
+
+<!-- ===================== 비밀번호 모달 ===================== -->
+<div class="modal-overlay" id="pwOverlay">
+  <div class="modal">
+    <button class="close-btn" id="closePwBtn">✕</button>
+    <div class="pw-box">
+      <div class="lock-ic">🔐</div>
+      <h3>편집 모드</h3>
+      <p>교직원 소개 글을 작성·수정하려면<br>매번 비밀번호를 입력해야 합니다.</p>
+      <input type="password" id="pwInput" placeholder="비밀번호" inputmode="numeric" />
+      <div class="pw-error" id="pwError">비밀번호가 올바르지 않습니다.</div>
+      <button class="form-submit" id="pwSubmitBtn">확인</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="./js/people.js"></script>
+<script src="./js/main.js"></script>
+</body>
+</html>
